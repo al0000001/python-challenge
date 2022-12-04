@@ -1,8 +1,12 @@
+# PyBank solution code's basic method has been copied from below link, but changes made to the details
+# https://stackoverflow.com/questions/46965192/python-how-can-i-find-difference-between-two-rows-of-same-column-using-loop-in
+
 import os
 
 import csv
 
 csvpath = os.path.join("D:\\","Boot Camp","Github Material","python-challenge","PyBank","Resources","budget_data.csv")
+outputtxtpath = os.path.join("D:\\","Boot Camp","Github Material","python-challenge","PyBank","analysis","budget_data.txt")
 
 with open(csvpath) as csvfile:
     
@@ -13,40 +17,53 @@ with open(csvpath) as csvfile:
     p_l=[]
     date = []
     p_change = []
-    
-
-    # in this loop I did sum of column 1 which is revenue in csv file and counted total months which is column 0 
+    p_a_change =[]
     for row in csvreader:
 
         p_l.append(float(row[1]))
         date.append(row[0])
     
-    print("Financial Analysis")
-    print("-----------------------------------")
-    print("Total Months:", len(date))
-    print("Total: $", round(sum(p_l)))
+with open(outputtxtpath, 'w') as txt_file:
 
-
-    #in this loop I did total of difference between all row of column "Revenue" and found total revnue change. Also found out max revenue change and min revenue change. 
-    for i in range(0,len(p_l)):
-
-        p_change.append(p_l[i] - p_l[i-1])  
+        summary= (f"Financial Analysis\n"
+                  f"\n"
+                  f"-----------------------------------\n"
+                  f"\n"
+                  f"Total Months: {len(date)}\n"
+                  f"Total: $ {round(sum(p_l))}\n")
+        print(summary)
         
-        #avg_p_change = sum(p_change)/len(p_change)
+        txt_file.write(summary)
 
-        max_p_change = max(p_change)
-
-        min_p_change = min(p_change)
-
-        max_p_change_date = str(date[p_change.index(max(p_change))]) 
+        #Find average in changes
+        for x in range(1,len(p_l)):
+    
+            p_a_change.append(p_l[x] - p_l[x-1])  
         
-        min_p_change_date = str(date[p_change.index(min(p_change))]) 
+            avg_p_change = str(round(sum(p_a_change)/(len(p_a_change)),2))
 
-    #print("Avereage Change: $", round(avg_p_change))
-    print("Greatest Increase in Profits:", max_p_change_date,"($", round(max_p_change),")")
-    print("Greatest Decrease in Profits:", min_p_change_date,"($", round(min_p_change),")")
+        print("Avereage Change: $", avg_p_change)
 
-    for i in range(1,len(p_l)):
-        p_change.append(p_l[i] - p_l[i-1])  
-        avg_p_change = sum(p_change)/len(p_change)
-    print("Avereage Change: $", round(avg_p_change))
+        txt_file.write(f"Average Change: {avg_p_change}\n")
+       
+    
+        #Find maximum and minimum 
+        for i in range(0,len(p_l)):
+
+            p_change.append(p_l[i] - p_l[i-1])  
+        
+            max_p_change = round(max(p_change))
+
+            min_p_change = round(min(p_change))
+
+            max_p_change_date = str(date[p_change.index(max(p_change))]) 
+        
+            min_p_change_date = str(date[p_change.index(min(p_change))]) 
+        
+        maxminsummary= (f"Greatest Increase in Profits: {max_p_change_date} ($ {max_p_change})\n"
+                        f"Greatest Decrease in Profits: {min_p_change_date} ($ {min_p_change})"
+                        )
+
+        print(maxminsummary)
+        txt_file.write(maxminsummary)
+        
