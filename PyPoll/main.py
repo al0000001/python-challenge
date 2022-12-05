@@ -13,8 +13,8 @@ count_win = 0
 percentage_win = 0
 
 #Open & Write the file and Skip header
-csvpath = os.path.join("D:\\","Boot Camp","Github Material","python-challenge","PyPoll","Resources","election_data.csv")
-outputtxtpath = os.path.join("D:\\","Boot Camp","Github Material","python-challenge","PyPoll","analysis","election_data.txt")
+csvpath = os.path.join("Resources","election_data.csv")
+outputtxtpath = os.path.join("analysis","election_data.txt")
 
 with open(csvpath) as csvfile:
     

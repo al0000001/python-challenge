@@ -5,8 +5,8 @@ import os
 
 import csv
 
-csvpath = os.path.join("D:\\","Boot Camp","Github Material","python-challenge","PyBank","Resources","budget_data.csv")
-outputtxtpath = os.path.join("D:\\","Boot Camp","Github Material","python-challenge","PyBank","analysis","budget_data.txt")
+csvpath = os.path.join("Resources","budget_data.csv")
+outputtxtpath = os.path.join("analysis","budget_data.txt")
 
 with open(csvpath) as csvfile:
     
